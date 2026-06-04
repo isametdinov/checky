@@ -1,21 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checky - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
 <body>
-    <section class="login-container">
-        <div class="login-card">
-            <img src="assets/logo.png" alt="Checky">
 
-            <h2>Welcome to Checky</h2>
+    <section class="login-container">
+
+        <div class="login-card">
+
+            <div class="logo-section">
+                <img src="assets/logo.png" alt="Checky Logo" class="logo">
+                <h1>Checky</h1>
+            </div>
+
+            <div class="welcome-text">
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your gas station management dashboard.</p>
+            </div>
 
             <form id="login-form">
-                <input type="text" placeholder="Username">
 
-                <input type="password" placeholder="Password">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
 
-                <button type="submit">
-                    Login
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <div class="login-options">
+                    <label class="remember-me">
+                        <input type="checkbox">
+                        <span>Remember Me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Sign In
                 </button>
+
             </form>
+
+            <div class="login-footer">
+                <p>&copy; 2026 Checky Gas Station Management System</p>
+            </div>
+
         </div>
+
     </section>
 
     <script src="js/login.js"></script>
 </body>
+</html>
