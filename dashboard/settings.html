@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checky - Settings</title>
+
+    <link rel="stylesheet" href="../css/settings.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo-section">
+            <img src="../assets/logo.png" alt="Checky Logo">
+            <h2>Checky</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="dashboard.html">📊 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="reports.html">📋 Daily Reports</a>
+            </li>
+
+            <li>
+                <a href="fuel-management.html">⛽ Fuel Management</a>
+            </li>
+
+            <li>
+                <a href="finance.html">💰 Finance</a>
+            </li>
+
+            <li>
+                <a href="employees.html">👥 Employees</a>
+            </li>
+
+            <li>
+                <a href="analytics.html">📈 Analytics</a>
+            </li>
+
+            <li class="active">
+                <a href="settings.html">⚙️ Settings</a>
+            </li>
+
+            <li class="logout">
+                <a href="../index.html">🚪 Logout</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+
+            <div>
+                <h1>Settings</h1>
+                <p>Manage system configuration and profile</p>
+            </div>
+
+        </header>
+
+        <!-- Profile Section -->
+        <section class="settings-section">
+
+            <div class="settings-card">
+
+                <h2>Profile Settings</h2>
+
+                <form>
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" value="Admin">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" value="admin@checky.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" value="+998 90 000 00 00">
+                    </div>
+
+                    <button class="primary-btn">
+                        Save Changes
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- System Settings -->
+        <section class="settings-section">
+
+            <div class="settings-card">
+
+                <h2>System Settings</h2>
+
+                <div class="settings-item">
+
+                    <div>
+                        <h3>Language</h3>
+                        <p>Choose system language</p>
+                    </div>
+
+                    <select>
+                        <option>English</option>
+                        <option>Uzbek</option>
+                        <option>Russian</option>
+                    </select>
+
+                </div>
+
+                <div class="settings-item">
+
+                    <div>
+                        <h3>Theme</h3>
+                        <p>Light or dark mode</p>
+                    </div>
+
+                    <select>
+                        <option>Light</option>
+                        <option>Dark</option>
+                    </select>
+
+                </div>
+
+                <div class="settings-item">
+
+                    <div>
+                        <h3>Notifications</h3>
+                        <p>Enable system alerts</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Security Section -->
+        <section class="settings-section">
+
+            <div class="settings-card">
+
+                <h2>Security</h2>
+
+                <div class="security-item">
+
+                    <h3>Change Password</h3>
+
+                    <input type="password" placeholder="Current Password">
+                    <input type="password" placeholder="New Password">
+                    <input type="password" placeholder="Confirm Password">
+
+                    <button class="primary-btn">
+                        Update Password
+                    </button>
+
+                </div>
+
+                <div class="security-item danger">
+
+                    <h3>Danger Zone</h3>
+                    <p>Delete account permanently</p>
+
+                    <button class="danger-btn">
+                        Delete Account
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

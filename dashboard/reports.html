@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checky - Daily Reports</title>
+
+    <link rel="stylesheet" href="../css/reports.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo-section">
+            <img src="../assets/logo.png" alt="Checky Logo">
+            <h2>Checky</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="dashboard.html">📊 Dashboard</a>
+            </li>
+
+            <li class="active">
+                <a href="reports.html">📋 Daily Reports</a>
+            </li>
+
+            <li>
+                <a href="fuel-management.html">⛽ Fuel Management</a>
+            </li>
+
+            <li>
+                <a href="finance.html">💰 Finance</a>
+            </li>
+
+            <li>
+                <a href="employees.html">👥 Employees</a>
+            </li>
+
+            <li>
+                <a href="analytics.html">📈 Analytics</a>
+            </li>
+
+            <li>
+                <a href="settings.html">⚙️ Settings</a>
+            </li>
+
+            <li class="logout">
+                <a href="../index.html">🚪 Logout</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Daily Reports</h1>
+                <p>Create and manage shift reports</p>
+            </div>
+
+            <button class="primary-btn">
+                + New Report
+            </button>
+
+        </header>
+
+        <!-- Report Form -->
+        <section class="report-form-card">
+
+            <div class="card-header">
+                <h2>Create Daily Report</h2>
+            </div>
+
+            <form class="report-form">
+
+                <div class="form-group">
+                    <label>Shift Date</label>
+                    <input type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Operator Name</label>
+                    <input type="text" placeholder="Enter operator name">
+                </div>
+
+                <div class="form-group">
+                    <label>Opening Fuel (L)</label>
+                    <input type="number">
+                </div>
+
+                <div class="form-group">
+                    <label>Closing Fuel (L)</label>
+                    <input type="number">
+                </div>
+
+                <div class="form-group">
+                    <label>Cash Sales (UZS)</label>
+                    <input type="number">
+                </div>
+
+                <div class="form-group">
+                    <label>Card Sales (UZS)</label>
+                    <input type="number">
+                </div>
+
+                <div class="form-group">
+                    <label>Expenses (UZS)</label>
+                    <input type="number">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Notes</label>
+                    <textarea rows="5"></textarea>
+                </div>
+
+                <div class="full-width">
+                    <button class="primary-btn" type="submit">
+                        Save Report
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- Reports Table -->
+        <section class="table-card">
+
+            <div class="card-header">
+
+                <h2>Daily Reports History</h2>
+
+                <div class="table-actions">
+                    <button class="success-btn">
+                        Export Excel
+                    </button>
+
+                    <button class="danger-btn">
+                        Export PDF
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Operator</th>
+                            <th>Total Sales</th>
+                            <th>Expenses</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>04/06/2026</td>
+                            <td>Ali Karimov</td>
+                            <td>12,500,000 UZS</td>
+                            <td>1,200,000 UZS</td>
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>03/06/2026</td>
+                            <td>Sardor Ahmedov</td>
+                            <td>11,800,000 UZS</td>
+                            <td>980,000 UZS</td>
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>02/06/2026</td>
+                            <td>Jasur Bekov</td>
+                            <td>13,100,000 UZS</td>
+                            <td>1,450,000 UZS</td>
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
