@@ -3,72 +3,797 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checky - Login</title>
-    <link rel="stylesheet" href="css/login.css">
+    <title>Checky — Fuel Station Operations & Reporting SaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            900: '#0F172A',
+                            50. '#F8FAFC'
+                        },
+                        blue: {
+                            600: '#2563EB'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-radius: 14px;
+        }
+        .sidebar-active {
+            background-color: rgba(37, 99, 211, 0.08);
+            color: #2563EB;
+            font-weight: 500;
+        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body>
+<body class="h-screen overflow-hidden flex flex-col md:flex-row">
 
-    <section class="login-container">
-
-        <div class="login-card">
-
-            <div class="logo-section">
-                <img src="assets/logo.png" alt="Checky Logo" class="logo">
-                <h1>Checky</h1>
+    <div id="screen-login" class="fixed inset-0 z-50 flex bg-white registration-flow">
+        <div class="w-full lg:w-1/2 flex flex-col justify-between p-8 md:p-24 bg-white">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 text-white p-2 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <i data-lucide="fuel" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-slate-900">Checky</span>
             </div>
+            
+            <div class="max-w-md w-full mx-auto my-auto space-y-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Welcome back</h2>
+                    <p class="text-slate-500 mt-2">Enter your enterprise credentials to access your terminal dashboard.</p>
+                </div>
+                
+                <form class="space-y-5" onsubmit="event.preventDefault(); loginAndRedirect();">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Username or Email</label>
+                        <input type="text" value="ops.manager@stationgroup.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition" required>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm font-medium text-slate-700">Password</label>
+                            <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                        </div>
+                        <input type="password" value="••••••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition" required>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input id="remember-me" type="checkbox" checked class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500">
+                        <label for="remember-me" class="ml-2 text-sm text-slate-600">Remember this device for 30 days</label>
+                    </div>
 
-            <div class="welcome-text">
-                <h2>Welcome Back</h2>
-                <p>Sign in to access your gas station management dashboard.</p>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-medium shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                        Sign In to Workspace <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </form>
             </div>
-
-            <form id="login-form">
-
-                <div class="input-group">
-                    <label for="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Enter your username"
-                        required
-                    >
+            
+            <div class="text-sm text-slate-400 text-center lg:text-left">
+                &copy; 2026 Checky Technologies Inc. Enterprise Tier.
+            </div>
+        </div>
+        
+        <div class="hidden lg:flex lg:w-1/2 bg-slate-900 relative p-16 flex-col justify-between overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.2),transparent_50%)]"></div>
+            <div class="relative z-10 my-auto max-w-lg space-y-6">
+                <div class="bg-slate-800/60 backdrop-blur-md border border-slate-700/50 p-6 rounded-2xl shadow-2xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Live Station Network throughput</h4>
+                                <p class="text-xs text-slate-400">All 14 active branches</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded">Active</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs text-slate-400"><span>Unleaded 95 Fleet Vol.</span><span>42,891.40 L / Day</span></div>
+                        <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-blue-500 h-full w-4/5"></div></div>
+                    </div>
                 </div>
-
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                    >
+                
+                <div>
+                    <h3 class="text-2xl font-bold text-white tracking-tight">End-to-End Operational Integrity</h3>
+                    <p class="text-slate-400 mt-2 leading-relaxed">Reconcile variance, track automated inventory, process continuous shift logs, and audit margins cleanly across regional fleets.</p>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="login-options">
-                    <label class="remember-me">
-                        <input type="checkbox">
-                        <span>Remember Me</span>
-                    </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
 
-                <button type="submit" class="login-btn">
-                    Sign In
+    <aside class="hidden md:flex flex-col w-64 bg-white border-r border-slate-200/80 p-4 justify-between shrink-0">
+        <div class="space-y-6">
+            <div class="flex items-center gap-3 px-2 py-1">
+                <div class="bg-blue-600 text-white p-1.5 rounded-lg"><i data-lucide="fuel" class="w-5 h-5"></i></div>
+                <span class="text-lg font-bold tracking-tight text-slate-900">Checky</span>
+                <span class="text-[10px] font-mono bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded ml-auto">v2.4</span>
+            </div>
+            
+            <nav class="space-y-1">
+                <button onclick="switchView('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition sidebar-active">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Core Dashboard
                 </button>
+                <button onclick="switchView('daily-report')" id="nav-daily-report" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Shift & Fuel Intake
+                </button>
+                <button onclick="switchView('accountant')" id="nav-accountant" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> Ledger Audits
+                    <span class="ml-auto w-2 h-2 rounded-full bg-amber-500"></span>
+                </button>
+                <button onclick="switchView('branches')" id="nav-branches" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                    <i data-lucide="git-branch" class="w-4 h-4"></i> Hub Management
+                </button>
+                <button onclick="switchView('analytics')" id="nav-analytics" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analytics Engine
+                </button>
+                <button onclick="switchView('users')" id="nav-users" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                    <i data-lucide="users" class="w-4 h-4"></i> Access Matrix
+                </button>
+            </nav>
+        </div>
 
-            </form>
+        <div class="space-y-2 pt-4 border-t border-slate-100">
+            <button onclick="switchView('notifications')" id="nav-notifications" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition">
+                <i data-lucide="bell" class="w-4 h-4"></i> Alert Terminal
+            </button>
+            <button onclick="switchView('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition">
+                <i data-lucide="settings" class="w-4 h-4"></i> Infrastructure
+            </button>
+            <div class="flex items-center gap-3 p-2 bg-slate-50 rounded-xl mt-2">
+                <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">AM</div>
+                <div class="truncate">
+                    <p class="text-xs font-semibold text-slate-900 truncate">Alex Mercer</p>
+                    <p class="text-[10px] text-slate-500 truncate">Regional Controller</p>
+                </div>
+            </div>
+        </div>
+    </aside>
 
-            <div class="login-footer">
-                <p>&copy; 2026 Checky Gas Station Management System</p>
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-50">
+        
+        <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md flex items-center justify-between px-6 z-10 shrink-0">
+            <div class="flex items-center gap-4">
+                <h1 id="page-title" class="text-lg font-semibold text-slate-900">Core Dashboard</h1>
+                <span class="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-600 font-medium hidden md:inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> All Terminals Synced
+                </span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <i data-lucide="search" class="absolute left-3 top-2.5 w-4 h-4 text-slate-400"></i>
+                    <input type="text" placeholder="Global search index..." class="pl-9 pr-4 py-1.5 bg-slate-50 text-xs border border-slate-200 rounded-lg w-64 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                </div>
+                
+                <button onclick="switchView('notifications')" class="relative p-1.5 text-slate-500 hover:bg-slate-50 rounded-lg transition">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-blue-600 rounded-full"></span>
+                </button>
+                <div class="h-5 w-[1px] bg-slate-200"></div>
+                <span class="text-xs font-mono text-slate-500 font-medium">STATION_GROUP_A</span>
+            </div>
+        </header>
+
+        <div id="content-container" class="flex-1 overflow-y-auto p-4 md:p-8 no-scrollbar">
+
+            <div id="view-dashboard" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-5 bg-white">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Gross Revenue Today</span>
+                            <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-medium">+12.4%</span>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-2xl font-bold tracking-tight text-slate-900">$48,291.50</h3>
+                            <p class="text-xs text-slate-400 mt-1">Across 12 operating hubs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-5 bg-white">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fuel Displacement</span>
+                            <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-medium">+4.2%</span>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-2xl font-bold tracking-tight text-slate-900">18,490.20 L</h3>
+                            <p class="text-xs text-slate-400 mt-1">Unleaded, Premium, Diesel</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 bg-white">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Transaction Count</span>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">Steady</span>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-2xl font-bold tracking-tight text-slate-900">1,242</h3>
+                            <p class="text-xs text-slate-400 mt-1">Avg Ticket Size: $38.80</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 bg-white">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Reconciliation Variance</span>
+                            <span class="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-medium">Requires Audit</span>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-2xl font-bold tracking-tight text-amber-600">-$142.10</h3>
+                            <p class="text-xs text-slate-400 mt-1">Pending continuous closure</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 glass-card bg-white p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-900">Volumetric Output vs Financial Realization</h3>
+                                <p class="text-xs text-slate-400">Current 24-hour cycle aggregated data</p>
+                            </div>
+                            <select class="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none">
+                                <option>Hourly Granularity</option>
+                                <option>Shift Breakdown</option>
+                            </select>
+                        </div>
+                        <div class="h-64 w-full bg-slate-50 rounded-xl relative overflow-hidden flex items-end p-2 border border-slate-100">
+                            <div class="absolute inset-0 p-6 flex flex-col justify-between pointer-events-none">
+                                <div class="w-full border-b border-slate-200/50 h-0"></div>
+                                <div class="w-full border-b border-slate-200/50 h-0"></div>
+                                <div class="w-full border-b border-slate-200/50 h-0"></div>
+                                <div class="w-full border-b border-slate-200/50 h-0"></div>
+                            </div>
+                            <div class="w-full flex items-end justify-between px-4 z-10 h-48">
+                                <div class="w-8 bg-blue-600/20 hover:bg-blue-600 rounded-t-md transition-all duration-300" style="height: 40%"></div>
+                                <div class="w-8 bg-blue-600/20 hover:bg-blue-600 rounded-t-md transition-all duration-300" style="height: 55%"></div>
+                                <div class="w-8 bg-blue-600/30 hover:bg-blue-600 rounded-t-md transition-all duration-300" style="height: 75%"></div>
+                                <div class="w-8 bg-blue-600/20 hover:bg-blue-600 rounded-t-md transition-all duration-300" style="height: 45%"></div>
+                                <div class="w-8 bg-blue-600/40 hover:bg-blue-600 rounded-t-md transition-all duration-300" style="height: 90%"></div>
+                                <div class="w-8 bg-blue-600 h-full rounded-t-md"></div>
+                                <div class="w-8 bg-blue-600/50 hover:bg-blue-600 rounded-t-md transition-all duration-300" style="height: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card bg-white p-6 space-y-4">
+                        <h3 class="text-sm font-semibold text-slate-900">Branch Output Matrix</h3>
+                        <div class="space-y-4">
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-medium"><span class="text-slate-700">Metro Station Alpha</span><span class="text-slate-900 font-semibold">$14,200.00</span></div>
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-600 h-full w-[85%]"></div></div>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-medium"><span class="text-slate-700">Express Hub South</span><span class="text-slate-900 font-semibold">$11,850.10</span></div>
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-600 h-full w-[70%]"></div></div>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-medium"><span class="text-slate-700">Coastal Route Terminal</span><span class="text-slate-900 font-semibold">$9,430.00</span></div>
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-600 h-full w-[55%]"></div></div>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-medium"><span class="text-slate-700">Interstate Cargo Plaza</span><span class="text-slate-900 font-semibold">$8,910.40</span></div>
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-600 h-full w-[50%]"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card bg-white p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold text-slate-900">Real-time Node Activity Feed</h3>
+                        <span class="text-xs text-blue-600 cursor-pointer hover:underline">View journal</span>
+                    </div>
+                    <div class="divide-y divide-slate-100">
+                        <div class="py-3 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                <span class="text-xs font-medium text-slate-800">Shift report submitted for Hub South</span>
+                            </div>
+                            <span class="text-xs text-slate-400">3 mins ago</span>
+                        </div>
+                        <div class="py-3 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                                <span class="text-xs font-medium text-slate-800">Tank inventory calibration sync complete</span>
+                            </div>
+                            <span class="text-xs text-slate-400">14 mins ago</span>
+                        </div>
+                        <div class="py-3 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+                                <span class="text-xs font-medium text-slate-800">Variance alert threshold exceeded at Plaza East</span>
+                            </div>
+                            <span class="text-xs text-slate-400">1 hr ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-daily-report" class="hidden max-w-4xl mx-auto space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-900">Daily Reconciliation Entry</h2>
+                        <p class="text-xs text-slate-500">Compile continuous daily pipeline, sales register totals and physical dips.</p>
+                    </div>
+                    <span class="text-xs font-mono bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-medium">Session ID: #8291A</span>
+                </div>
+
+                <div class="glass-card bg-white p-6 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-6 border-b border-slate-100">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 mb-1">Target Station Node</label>
+                            <select class="w-full px-3 py-2 bg-slate-50 text-xs border border-slate-200 rounded-lg focus:outline-none">
+                                <option>Metro Station Alpha</option>
+                                <option>Express Hub South</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 mb-1">Shift Configuration</label>
+                            <select class="w-full px-3 py-2 bg-slate-50 text-xs border border-slate-200 rounded-lg focus:outline-none">
+                                <option>Morning Shift (06:00 - 14:00)</option>
+                                <option>Evening Shift (14:00 - 22:00)</option>
+                                <option>Night Shift (22:00 - 06:00)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 mb-1">Accounting Date</label>
+                            <input type="date" value="2026-06-05" class="w-full px-3 py-2 bg-slate-50 text-xs border border-slate-200 rounded-lg focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold text-slate-700 tracking-wider uppercase">Fuel Component Reconciliation</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <span class="text-xs font-semibold text-slate-800">Unleaded 95</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Opening Counter (L)</label>
+                                <input type="number" value="102450" class="w-full px-2.5 py-1.5 bg-white text-xs border border-slate-200 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Closing Counter (L)</label>
+                                <input type="number" value="106890" class="w-full px-2.5 py-1.5 bg-white text-xs border border-slate-200 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Auto-Calc Yield Volume</label>
+                                <div class="px-2.5 py-1.5 bg-slate-100 text-xs text-slate-700 font-semibold rounded-md">4,440 L</div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <span class="text-xs font-semibold text-slate-800">Premium Diesel</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Opening Counter (L)</label>
+                                <input type="number" value="482100" class="w-full px-2.5 py-1.5 bg-white text-xs border border-slate-200 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Closing Counter (L)</label>
+                                <input type="number" value="485300" class="w-full px-2.5 py-1.5 bg-white text-xs border border-slate-200 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Auto-Calc Yield Volume</label>
+                                <div class="px-2.5 py-1.5 bg-slate-100 text-xs text-slate-700 font-semibold rounded-md">3,200 L</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                        <div class="space-y-3">
+                            <h3 class="text-xs font-bold text-slate-700 tracking-wider uppercase">Cash Drawer Drop</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-500">Physical Declared Cash</span>
+                                    <input type="number" value="12450.00" class="w-32 px-2 py-1 bg-slate-50 text-xs text-right border border-slate-200 rounded">
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-500">Safe Drop Log Receipt</span>
+                                    <input type="number" value="12000.00" class="w-32 px-2 py-1 bg-slate-50 text-xs text-right border border-slate-200 rounded">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h3 class="text-xs font-bold text-slate-700 tracking-wider uppercase">Out-of-Pocket Shift Expenses</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-500">Local Station Logistics / Misc</span>
+                                    <input type="number" value="120.00" class="w-32 px-2 py-1 bg-slate-50 text-xs text-right border border-slate-200 rounded">
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-500">Approved Vendor Cash Outlays</span>
+                                    <input type="number" value="350.00" class="w-32 px-2 py-1 bg-slate-50 text-xs text-right border border-slate-200 rounded">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
+                        <button type="button" class="px-4 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition">Save Working Draft</button>
+                        <button type="button" onclick="alert('Report submitted to ledger review workflow.'); switchView('dashboard')" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 transition">Commit & Dispatch Report</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-accountant" class="hidden space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="glass-card bg-white p-4 flex items-center justify-between">
+                        <div><p class="text-xs text-slate-400">Awaiting Reconciliation Approval</p><h4 class="text-xl font-bold text-slate-900 mt-1">7 Shift Logs</h4></div>
+                        <div class="p-2.5 bg-amber-50 text-amber-600 rounded-xl"><i data-lucide="clock" class="w-5 h-5"></i></div>
+                    </div>
+                    <div class="glass-card bg-white p-4 flex items-center justify-between">
+                        <div><p class="text-xs text-slate-400">Total Approved Volume Today</p><h4 class="text-xl font-bold text-slate-900 mt-1">$36,912.00</h4></div>
+                        <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+                    </div>
+                    <div class="glass-card bg-white p-4 flex items-center justify-between">
+                        <div><p class="text-xs text-slate-400">Disputed Line Variances</p><h4 class="text-xl font-bold text-rose-600 mt-1">2 Instances</h4></div>
+                        <div class="p-2.5 bg-rose-50 text-rose-600 rounded-xl"><i data-lucide="alert-octagon" class="w-5 h-5"></i></div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 bg-white p-3 rounded-xl border border-slate-200/60">
+                    <div class="flex items-center gap-2">
+                        <select class="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5"><option>Filter Branch: All Nodes</option></select>
+                        <select class="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5"><option>Status: Pending Review</option></select>
+                    </div>
+                    <span class="text-xs text-slate-400 font-mono">Real-time audit connection active</span>
+                </div>
+
+                <div class="glass-card bg-white overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
+                                    <th class="p-4">Station Node</th>
+                                    <th class="p-4">Shift Reference</th>
+                                    <th class="p-4">Reported Sales</th>
+                                    <th class="p-4">Delta Variance</th>
+                                    <th class="p-4">Audit Status</th>
+                                    <th class="p-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-xs text-slate-700 divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-4 font-medium text-slate-900">Metro Station Alpha</td>
+                                    <td class="p-4">Morning #041 <br><span class="text-[10px] text-slate-400">Op: S. Jenkins</span></td>
+                                    <td class="p-4">$14,200.00</td>
+                                    <td class="p-4 text-emerald-600 font-mono">+$0.00 (Perfect)</td>
+                                    <td class="p-4"><span class="px-2.5 py-0.5 bg-amber-50 text-amber-700 rounded-full text-[10px] font-medium">Pending Audit</span></td>
+                                    <td class="p-4 text-right space-x-1">
+                                        <button onclick="alert('Journal Line item entry verified.');" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 font-medium rounded hover:bg-emerald-100 transition">Approve</button>
+                                        <button class="px-2.5 py-1 bg-slate-50 text-slate-600 font-medium rounded hover:bg-slate-100 transition">Flag</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium text-slate-900">Express Hub South</td>
+                                    <td class="p-4">Night #039 <br><span class="text-[10px] text-slate-400">Op: K. Vance</span></td>
+                                    <td class="p-4">$11,850.10</td>
+                                    <td class="p-4 text-rose-600 font-mono">-$142.10 (Shortage)</td>
+                                    <td class="p-4"><span class="px-2.5 py-0.5 bg-rose-50 text-rose-700 rounded-full text-[10px] font-medium">Investigating</span></td>
+                                    <td class="p-4 text-right space-x-1">
+                                        <button class="px-2.5 py-1 bg-emerald-50 text-slate-400 font-medium rounded cursor-not-allowed" disabled>Approve</button>
+                                        <button onclick="alert('Re-routing ledger item to regional compliance queue.');" class="px-2.5 py-1 bg-rose-50 text-rose-700 font-medium rounded hover:bg-rose-100 transition">Reject</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card bg-white p-4 space-y-3">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Internal Controller Audit Log Notes</h4>
+                    <div class="flex gap-3 text-xs bg-slate-50 p-3 rounded-lg border border-slate-200/40">
+                        <div class="w-6 h-6 rounded-full bg-slate-300 flex items-center justify-center text-[10px] font-bold uppercase">JD</div>
+                        <div>
+                            <p class="font-medium text-slate-800">John Davis (Lead Corporate Accountant)</p>
+                            <p class="text-slate-500 mt-0.5">"Flagged the variance on Express Hub South. Shortage seems correlated with pump #4 calibration cycle logs. Cross-referencing technical telemetry now."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-branches" class="hidden space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-sm font-semibold text-slate-900">Corporate Station Node Infrastructure</h2>
+                        <p class="text-xs text-slate-400">Manage terminal operational permissions, geographic fleet endpoints, and active targets.</p>
+                    </div>
+                    <button onclick="alert('B2B Tier limit reached. To scale network past 14 hub licenses, upgrade to Enterprise Core Unlimited.');" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-xl shadow hover:bg-blue-700 transition flex items-center gap-1.5">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Provison New Node
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card bg-white p-6 space-y-4">
+                        <h3 class="text-xs font-bold text-slate-700 tracking-wider uppercase">Active Station Ecosystem</h3>
+                        <div class="divide-y divide-slate-100">
+                            <div class="py-3 flex justify-between items-center">
+                                <div><p class="text-xs font-semibold text-slate-900">Metro Station Alpha</p><p class="text-[10px] text-slate-400">12 Pumps • Fuel Level 84%</p></div>
+                                <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-mono">Online</span>
+                            </div>
+                            <div class="py-3 flex justify-between items-center">
+                                <div><p class="text-xs font-semibold text-slate-900">Express Hub South</p><p class="text-[10px] text-slate-400">8 Pumps • Fuel Level 42%</p></div>
+                                <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-mono">Online</span>
+                            </div>
+                            <div class="py-3 flex justify-between items-center">
+                                <div><p class="text-xs font-semibold text-slate-900">Coastal Route Terminal</p><p class="text-[10px] text-slate-400">6 Pumps • Fuel Level 91%</p></div>
+                                <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-mono">Online</span>
+                            </div>
+                            <div class="py-3 flex justify-between items-center">
+                                <div><p class="text-xs font-semibold text-slate-900">Interstate Cargo Plaza</p><p class="text-[10px] text-slate-400">16 Pumps • Fuel Level 19%</p></div>
+                                <span class="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-mono">Low Inventory Alert</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card bg-white p-6 space-y-4">
+                        <h3 class="text-xs font-bold text-slate-700 tracking-wider uppercase">Regional Margin Performance Index</h3>
+                        <div class="h-48 w-full bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 p-4">
+                            <div class="text-center space-y-2">
+                                <div class="flex gap-2 justify-center items-end h-24">
+                                    <div class="w-4 bg-blue-600 rounded-sm" style="height: 80%"></div>
+                                    <div class="w-4 bg-slate-300 rounded-sm" style="height: 60%"></div>
+                                    <div class="w-4 bg-slate-200 rounded-sm" style="height: 40%"></div>
+                                </div>
+                                <p class="text-xs text-slate-400 font-medium">Variance Optimization Target met for Northern Region Fleet operations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-analytics" class="hidden space-y-6">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <input type="date" value="2026-05-01" class="text-xs bg-white border border-slate-200 rounded-lg px-2 py-1.5">
+                        <span class="text-xs text-slate-400">to</span>
+                        <input type="date" value="2026-06-05" class="text-xs bg-white border border-slate-200 rounded-lg px-2 py-1.5">
+                    </div>
+                    <button onclick="alert('Compiling comprehensive report package PDF/XLSX across 14 hubs...');" class="px-3 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-xl shadow hover:bg-slate-800 transition flex items-center gap-1.5">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i> Export Fleet Data Package
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card bg-white p-5 space-y-2">
+                        <span class="text-xs font-medium text-slate-400">Monthly Run Rate Revenue</span>
+                        <h3 class="text-2xl font-bold tracking-tight text-slate-900">$1,448,201.00</h3>
+                        <div class="h-16 w-full bg-slate-50 rounded-lg flex items-center px-2"><span class="text-[11px] text-emerald-600 font-medium">↗ +18.4% MoM Variance optimization curve</span></div>
+                    </div>
+                    <div class="glass-card bg-white p-5 space-y-2">
+                        <span class="text-xs font-medium text-slate-400">Aggregated Wet Stock Volumetric Run</span>
+                        <h3 class="text-2xl font-bold tracking-tight text-slate-900">542,912.40 L</h3>
+                        <div class="h-16 w-full bg-slate-50 rounded-lg flex items-center px-2"><span class="text-[11px] text-slate-500 font-medium">● Stable continuous flow through pipeline</span></div>
+                    </div>
+                    <div class="glass-card bg-white p-5 space-y-2">
+                        <span class="text-xs font-medium text-slate-400">Operator Performance Index</span>
+                        <h3 class="text-2xl font-bold tracking-tight text-slate-900">99.86%</h3>
+                        <div class="h-16 w-full bg-slate-50 rounded-lg flex items-center px-2"><span class="text-[11px] text-blue-600 font-medium">✓ Shift submissions logged within optimal 15-min window</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-card bg-white p-6">
+                    <h3 class="text-xs font-bold text-slate-700 tracking-wider uppercase mb-4">Historical Sales Pipeline Trends</h3>
+                    <div class="h-64 bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 border border-slate-100">
+                        [Interactive Time-Series Visualization Vector Graph Component Context]
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-users" class="hidden space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-sm font-semibold text-slate-900">Identity & Access Control Engine</h2>
+                        <p class="text-xs text-slate-400">Assign role hierarchy vectors across physical locations and ledger environments.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="alert('Opening operator provisioning module.');" class="px-3 py-1.5 bg-slate-100 text-slate-700 text-xs font-medium rounded-xl transition hover:bg-slate-200">+ Add Pump Operator</button>
+                        <button onclick="alert('Opening accountant provisioning module.');" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-xl shadow transition hover:bg-blue-700">+ Add Accountant</button>
+                    </div>
+                </div>
+
+                <div class="glass-card bg-white overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
+                                <th class="p-4">User Principal</th>
+                                <th class="p-4">Assigned Enterprise Role</th>
+                                <th class="p-4">Scope Level Authorization</th>
+                                <th class="p-4">System Identity Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-xs text-slate-700 divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-4 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-600">AM</div>
+                                    <div><p class="font-semibold text-slate-900">Alex Mercer</p><p class="text-[10px] text-slate-400">alex@checky.io</p></div>
+                                </td>
+                                <td class="p-4 font-medium text-slate-900">System Administrator</td>
+                                <td class="p-4 text-slate-500">Global Tenant (All Hubs)</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] rounded-full font-medium">MFA Verified</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-600">JD</div>
+                                    <div><p class="font-semibold text-slate-900">John Davis</p><p class="text-[10px] text-slate-400">j.davis@checky.io</p></div>
+                                </td>
+                                <td class="p-4 font-medium text-slate-900">Accountant / Internal Auditor</td>
+                                <td class="p-4 text-slate-500">Ledger Network Access Only</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] rounded-full font-medium">MFA Verified</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-600">SJ</div>
+                                    <div><p class="font-semibold text-slate-900">Sarah Jenkins</p><p class="text-[10px] text-slate-400">s.jenkins@stationgroup.com</p></div>
+                                </td>
+                                <td class="p-4 font-medium text-slate-900">Fuel Station Operator</td>
+                                <td class="p-4 text-slate-500">Node Location: Metro Alpha</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] rounded-full font-medium">Active Session</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div id="view-notifications" class="hidden max-w-2xl mx-auto space-y-4">
+                <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <h2 class="text-sm font-semibold text-slate-900">Operational Security & Event Terminal</h2>
+                    <button onclick="alert('Clearing non-critical alert logs.');" class="text-xs text-blue-600 hover:underline">Mark all read</button>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="glass-card bg-white p-4 border-l-4 border-l-amber-500 rounded-r-xl flex gap-3">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-500 shrink-0"></i>
+                        <div>
+                            <h4 class="text-xs font-semibold text-slate-900">Report Submission Variance Alert</h4>
+                            <p class="text-xs text-slate-500 mt-1">Shift submission for Express Hub South contains a -$142.10 net settlement cash discrepancy. Routing to internal auditing.</p>
+                            <span class="text-[10px] text-slate-400 block mt-2">Today at 10:24 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card bg-white p-4 border-l-4 border-l-emerald-500 rounded-r-xl flex gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i>
+                        <div>
+                            <h4 class="text-xs font-semibold text-slate-900">Reconciliation Report Approved</h4>
+                            <p class="text-xs text-slate-500 mt-1">Metro Station Alpha Morning Shift log validated cleanly and committed to global ledger archive index.</p>
+                            <span class="text-[10px] text-slate-400 block mt-2">Today at 09:15 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-settings" class="hidden max-w-3xl mx-auto glass-card bg-white p-6 space-y-6">
+                <div>
+                    <h2 class="text-base font-semibold text-slate-900">Enterprise Workspace Configuration</h2>
+                    <p class="text-xs text-slate-400">Configure global metadata rules, subscription billing pipelines, and security controls.</p>
+                </div>
+
+                <div class="space-y-4 divide-y divide-slate-100">
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><h3 class="text-xs font-semibold text-slate-800">Corporate Master profile</h3></div>
+                        <div class="md:col-span-2 space-y-3">
+                            <input type="text" value="Station Group Operations Ltd." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                            <input type="text" value="HQ Terminal Base — Suite 400, Chicago IL" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                        </div>
+                    </div>
+
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><h3 class="text-xs font-semibold text-slate-800">Security Architecture</h3></div>
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="flex items-center gap-2 text-xs text-slate-700">
+                                <input type="checkbox" checked class="rounded border-slate-300 text-blue-600"> Enforce Strict MFA Token verification across all Pump Terminal Nodes
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><h3 class="text-xs font-semibold text-slate-800">Subscription Protocol</h3></div>
+                        <div class="md:col-span-2 flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200/50">
+                            <div><p class="text-xs font-semibold text-slate-900">Enterprise Pro Network License</p><p class="text-[10px] text-slate-400">Next billing cycle invoice generated July 01, 2026.</p></div>
+                            <span class="text-xs bg-blue-50 text-blue-700 font-mono font-semibold px-2.5 py-1 rounded-lg">$450.00/Mo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-4 border-t border-slate-100">
+                    <button onclick="alert('Configuration variables safely applied globally across system pipeline.');" class="px-4 py-2 bg-blue-600 text-white font-medium text-xs rounded-xl hover:bg-blue-700 transition">Commit Configurations</button>
+                </div>
             </div>
 
         </div>
 
-    </section>
+        <footer class="md:hidden h-16 bg-white border-t border-slate-200 flex items-center justify-around z-20 shrink-0">
+            <button onclick="switchView('dashboard')" class="flex flex-col items-center justify-center text-blue-600"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="text-[9px] mt-0.5">Home</span></button>
+            <button onclick="switchView('daily-report')" class="flex flex-col items-center justify-center text-slate-400"><i data-lucide="file-text" class="w-5 h-5"></i><span class="text-[9px] mt-0.5">Report</span></button>
+            <button onclick="switchView('accountant')" class="flex flex-col items-center justify-center text-slate-400"><i data-lucide="shield-check" class="w-5 h-5"></i><span class="text-[9px] mt-0.5">Audit</span></button>
+            <button onclick="switchView('analytics')" class="flex flex-col items-center justify-center text-slate-400"><i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[9px] mt-0.5">Data</span></button>
+            <button onclick="switchView('settings')" class="flex flex-col items-center justify-center text-slate-400"><i data-lucide="settings" class="w-5 h-5"></i><span class="text-[9px] mt-0.5">Config</span></button>
+        </footer>
 
-    <script src="js/login.js"></script>
+    </main>
+
+    <script>
+        // Initialize clean modern iconography via Lucide framework
+        lucide.createIcons();
+
+        // Router routing map configuration
+        const viewIds = ['dashboard', 'daily-report', 'accountant', 'branches', 'analytics', 'users', 'notifications', 'settings'];
+
+        function switchView(targetView) {
+            // Cycle layout views visibility
+            viewIds.forEach(viewId => {
+                const element = document.getElementById(`view-${viewId}`);
+                if(viewId === targetView) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+
+                // Sync sidebar highlight styles natively
+                const navButton = document.getElementById(`nav-${viewId}`);
+                if(navButton) {
+                    if(viewId === targetView) {
+                        navButton.classList.add('sidebar-active');
+                    } else {
+                        navButton.classList.remove('sidebar-active');
+                    }
+                }
+            });
+
+            // Dynamically alter contextual window frame meta header title text
+            const titleMap = {
+                'dashboard': 'Core Dashboard',
+                'daily-report': 'Shift & Fuel Intake Engine',
+                'accountant': 'Ledger Audit Terminal',
+                'branches': 'Hub & Branch Management',
+                'analytics': 'Fleet Analytics Center',
+                'users': 'Identity & Access Matrix',
+                'notifications': 'Alert Logs',
+                'settings': 'Global System Infrastructure'
+            };
+            document.getElementById('page-title').innerText = titleMap[targetView] || 'Checky Operational Platform';
+        }
+
+        function loginAndRedirect() {
+            // Dismiss high-fidelity splash layer cleanly
+            const loginLayer = document.getElementById('screen-login');
+            loginLayer.classList.add('hidden');
+            switchView('dashboard');
+        }
+    </script>
 </body>
 </html>
